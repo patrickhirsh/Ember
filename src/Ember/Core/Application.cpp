@@ -12,7 +12,7 @@ namespace Ember
 
     }
 
-    Application::Run()
+    void Application::Run()
     {
         while(true);
     }

@@ -5,18 +5,21 @@
 ######################################################################
 
 # Compile
-CXXFLAGS = -Wall -O3 -g
+CXXFLAGS = -Wall -O3
 
 # CPP Project Files
-CPP_CORE = $(wildcard src/Core/*.cpp)
+CPP_BASE = $(wildcard src/*.cpp)
+CPP_EMBER = $(wildcard src/Ember/*.cpp)
+CPP_CORE = $(wildcard src/Ember/Core/*.cpp)
 
 # HDR Project Files
 HDR_BASE = $(wildcard src/*.h)
-HDR_CORE = $(wildcard src/Core/*.h)
+HDR_EMBER = $(wildcard src/Ember*.h)
+HDR_CORE = $(wildcard src/Ember/Core/*.h)
 
 # Composition
-CPP = $(CPP_CORE)
-HDR = $(HDR_BASE) $(HDR_CORE)
+CPP = $(CPP_BASE) $(CPP_EMBER) $(CPP_CORE)
+HDR = $(HDR_BASE) $(HDR_EMBER) $(HDR_CORE)
 TMP := $(subst src/,obj/,$(CPP))
 OBJ := $(subst .cpp,.o,$(TMP))
 
@@ -29,16 +32,17 @@ MD = mkdir -p
 
 # PRIMARY BUILD TARGET
 Ember: clean init $(OBJ) $(HDR)
-	$(CXX) $(CXXFLAGS) $(OBJ) -o Ember
+	ar -cvq libEmber.a $(OBJ)
 
 ######################################################################
 
 init:
 	${MD} obj
-	${MD} obj/Core
+	${MD} obj/Ember
+	${MD} obj/Ember/Core
 
 clean:
-	rm -f $(OBJ) Ember
+	rm -f $(OBJ) libEmber.a
 
 ######################################################################
 # PATTERNS
