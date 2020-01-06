@@ -1,0 +1,12 @@
+######################################################################
+# EMBER BUILD OPTIONS
+######################################################################
+
+# Switches to virtual mode, displaying Ember's output on a virtual
+# SFML window rather than a hardware DMD.
+#
+# NOTE: To build with virtual, SFML must be installed. This can be done
+# with "make install-virtual" in Ember's Makefile. When linking Ember
+# with the user application, the following SFML link flags must be included:
+# -lsfml-graphics -lsfml-window -lsfml-system
+VIRTUAL=0
