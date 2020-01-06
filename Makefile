@@ -11,19 +11,20 @@ BUILD_OPTIONS+=-DVIRTUAL=$(VIRTUAL)
 # Compile
 CXXFLAGS = -fPIC -Wall -O3
 
+# Include
+EMBER_INCLUDE_FLAGS = -Isrc/Ember/Include -Isrc
+
 # CPP Project Files
-CPP_BASE = $(wildcard src/*.cpp)
 CPP_EMBER = $(wildcard src/Ember/*.cpp)
 CPP_CORE = $(wildcard src/Ember/Core/*.cpp)
 
-# HDR Project Files
-HDR_BASE = $(wildcard src/*.h)
-HDR_EMBER = $(wildcard src/Ember*.h)
-HDR_CORE = $(wildcard src/Ember/Core/*.h)
+# PCH Project Files
+PCH = src/EmberPCH.h
+PCH_GCH = $(PCH).gch
 
 # Composition
-CPP = $(CPP_BASE) $(CPP_EMBER) $(CPP_CORE)
-HDR = $(HDR_BASE) $(HDR_EMBER) $(HDR_CORE)
+HDR = $(wildcard src/Ember/Include/*.h) src/*.h
+CPP = $(CPP_EMBER) $(CPP_CORE)
 TMP := $(subst src/,obj/,$(CPP))
 OBJ := $(subst .cpp,.o,$(TMP))
 
@@ -44,9 +45,9 @@ MD = mkdir -p
 ######################################################################
 
 # PRIMARY BUILD TARGET
-Ember: clean init $(OBJ) $(HDR) $(RGB_LIBRARY)
+Ember: clean init $(PCH_GCH) $(OBJ) $(HDR) $(RGB_LIBRARY)
 	ar x $(RGB_LIBRARY) && mv *.o $(RGB_LIBRARY_OBJ)
-	ar -cvq libEmber.a $(OBJ) $(RGB_LIBRARY_OBJ)/*.o $(SFML_FLAGS)
+	ar -cvq libEmber.a $(OBJ) $(RGB_LIBRARY_OBJ)/*.o
 
 
 ######################################################################
@@ -63,6 +64,9 @@ init:
 	${MD} obj/Ember/Core
 	${MD} $(RGB_LIBRARY_OBJ)
 
+$(PCH_GCH): $(PCH)
+	$(CXX) $(PCH)
+
 clean:
 	rm -f $(OBJ) libEmber.a
 
@@ -71,7 +75,7 @@ clean:
 ######################################################################
 
 obj/%.o: src/%.cpp
-	$(CXX) -c $(CXXFLAGS) $(BUILD_OPTIONS) $< -o $@
+	$(CXX) -c $(CXXFLAGS) $(BUILD_OPTIONS) $< -o $@ $(EMBER_INCLUDE_FLAGS)
 
 ######################################################################
 .PHONY: init, clean, install-virtual

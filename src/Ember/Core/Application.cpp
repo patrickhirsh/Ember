@@ -4,7 +4,7 @@ namespace Ember
 {
     Application::Application()
     {
-
+		
     }
 
     Application::~Application()
