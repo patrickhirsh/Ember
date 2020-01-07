@@ -2,7 +2,10 @@
 # EMBER BUILD OPTIONS
 ######################################################################
 
-# Switches to virtual mode, displaying Ember's output on a virtual
+# Build in Debug mode, which enables logging and other debug features.
+DEBUG=1
+
+# Builds for virtual mode, displaying Ember's output on a virtual
 # SFML window rather than a hardware DMD.
 #
 # NOTE: To build with virtual, SFML must be installed. This can be done

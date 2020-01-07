@@ -7,6 +7,7 @@ include Makefile.BuildOptions
 
 # Build Options (from Makefile.BuildOptions)
 BUILD_OPTIONS+=-DVIRTUAL=$(VIRTUAL)
+BUILD_OPTIONS+=-DDEBUG=$(DEBUG)
 
 # Compile
 CXXFLAGS = -fPIC -Wall -O3

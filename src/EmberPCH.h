@@ -29,5 +29,8 @@
 #include "../lib/rpi-rgb-led-matrix/include/threaded-canvas-manipulator.h"
 #include "../lib/rpi-rgb-led-matrix/include/pixel-mapper.h"
 #include "../lib/rpi-rgb-led-matrix/include/graphics.h"
+
+/* Ember */
+#include "Ember/Include/Log.h"
 #endif
 
