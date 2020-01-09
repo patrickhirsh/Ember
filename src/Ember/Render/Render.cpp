@@ -3,7 +3,7 @@
 namespace _Ember
 {
 #if !VIRTUAL
-	HardwareRender::HardwareRender(Ember::Options& options)
+	RenderSystem::RenderSystem(Ember::Options& options)
 	{
 		// init Render
 		initialize(options);
@@ -35,7 +35,7 @@ namespace _Ember
 		_buffer = _matrix->CreateFrameCanvas();
 	}
 
-	HardwareRender::~HardwareRender()
+	RenderSystem::~RenderSystem()
 	{
 		delete _gpio;
 		delete _matrix;
@@ -43,12 +43,12 @@ namespace _Ember
 #endif
 
 #if VIRTUAL
-	VirtualRender::VirtualRender(Ember::Options& options)
+	RenderSystem::RenderSystem(Ember::Options& options)
 	{
 		// init Render
 		initialize(options);
 
-		// init VirtualRender
+		// init Virtual
 		_scaleFactor = options.virtualScaleFactor;
 		_image = new sf::Image();
 		_texture = new sf::Texture();
@@ -59,7 +59,7 @@ namespace _Ember
 			"Ember");
 	}
 
-	VirtualRender::~VirtualRender()
+	RenderSystem::~RenderSystem()
 	{
 		delete _window;
 		delete _image;

@@ -23,11 +23,11 @@ namespace _Ember
 	};
 
 #if !VIRTUAL
-	class HardwareRender : public Render
+	class RenderSystem : public Render
 	{
 	public:
-		HardwareRender					(Ember::Options& options);
-		~HardwareRender					();
+		RenderSystem					(Ember::Options& options);
+		~RenderSystem					();
 		void DisplayFrame				() { };
 	private:
 		rgb_matrix::GPIO*				_gpio;
@@ -37,14 +37,11 @@ namespace _Ember
 #endif
 
 #if VIRTUAL
-
-#define VIRTUAL_BUFFER_SIZE
-
-	class VirtualRender : public Render
+	class RenderSystem : public Render
 	{
 	public:
-		VirtualRender					(Ember::Options& options);
-		~VirtualRender					();
+		RenderSystem					(Ember::Options& options);
+		~RenderSystem					();
 		void DisplayFrame				() { };
 	private:
 		sf::RenderWindow*               _window;
