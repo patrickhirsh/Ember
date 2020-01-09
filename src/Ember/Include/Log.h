@@ -4,7 +4,7 @@
 #include <iostream>
 
 #if DEBUG
-std::ofstream LOGSTREAM("Log.txt", std::ofstream::out);
+extern std::ofstream LOGSTREAM;
 #define _LOG_META "[" << __FILE__ << "][" << __FUNCTION__ << "][line " << __LINE__ << "]"
 #define _LOG(s) do { LOGSTREAM << s; std::cout << s; } while(0)
 #define LOG_INFO(m) _LOG("          " << _LOG_META << " : " << m << std::endl)	// Ember log info

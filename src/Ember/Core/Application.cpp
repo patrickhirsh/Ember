@@ -14,6 +14,7 @@ namespace Ember
 
     void Application::Run()
     {
+		_core = new _Ember::Core(options);
         while(true);
     }
 }
