@@ -2,8 +2,19 @@
 
 namespace _Ember
 {
+	////////////////////////////////////////////////////////////////////////////////
+	// Core
+
+	/* statics */
 	Core* Core::_instance = new Core();
 	bool Core::_running = false;
+
+	/* interupt management */
+	volatile bool interruptReceived = false;
+	static void InterruptHandler(int signo)
+	{
+		interruptReceived = true;
+	}
 
 	Core* Core::GetInstance()
 	{
@@ -25,13 +36,20 @@ namespace _Ember
 
 	void Core::initialize(Ember::Options& options)
 	{
-		_running = true;
+		// listen for interupts
+		signal(SIGTERM, InterruptHandler);
+    	signal(SIGINT, InterruptHandler);
+
 		_render = new RenderSystem(options);
+		_running = true;
 	}
 
 	void Core::run()
 	{
-		while(true);
+		while(!interruptReceived)
+		{
+
+		}
 	}
 
 	void Core::terminate()
@@ -41,4 +59,6 @@ namespace _Ember
 		_render = nullptr;
 		_running = false;
 	}
+
+	////////////////////////////////////////////////////////////////////////////////
 }
