@@ -36,7 +36,9 @@ namespace _Ember
 
 		// init Hardware
 		_matrix = new rgb_matrix::RGBMatrix(_gpio, matrixOptions);
+		if (_matrix == nullptr) { LOG_ERROR("couldn't create matrix!"); }
 		_buffer = _matrix->CreateFrameCanvas();
+		if (_buffer == nullptr) { LOG_ERROR("couldn't create frame buffer!"); }
 	}
 
 	RenderSystem::~RenderSystem()

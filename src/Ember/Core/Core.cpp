@@ -25,7 +25,7 @@ namespace _Ember
 	{
 		if (_running)
 		{
-			LOG_ERROR("An instance of Ember is already running");
+			LOG_ERROR("an instance of Ember is already running");
 			return;
 		}
 
@@ -36,11 +36,17 @@ namespace _Ember
 
 	void Core::initialize(Ember::Options& options)
 	{
+		LOG_INFO("========== Ember Startup ==========");
+
+
 		// listen for interupts
 		signal(SIGTERM, InterruptHandler);
     	signal(SIGINT, InterruptHandler);
 
+		LOG_INFO("Initializing " << (VIRTUAL ? "Virtual" : "Hardware") << " Render System...");
 		_render = new RenderSystem(options);
+
+		LOG_INFO("Startup Complete!");
 		_running = true;
 	}
 
@@ -54,10 +60,14 @@ namespace _Ember
 
 	void Core::terminate()
 	{
+		LOG_INFO("========== Ember Shutdown ==========");
+
+		LOG_INFO("Terminating " << (VIRTUAL ? "Virtual" : "Hardware") << " Render System...");
 		delete _render;
 
 		_render = nullptr;
 		_running = false;
+		LOG_INFO("Shutting Down");
 	}
 
 	////////////////////////////////////////////////////////////////////////////////
