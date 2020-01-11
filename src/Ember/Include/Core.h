@@ -7,9 +7,18 @@ namespace _Ember
 	class Core
 	{
 	public:
-		Core(Ember::Options& options);
-		~Core();
+		static Core* GetInstance	();
+		static void Run				(Ember::Options options);
+
 	private:
-		Render* _render; 
+		Core						() { };
+		static Core* 				_instance;
+		static bool 				_running;
+		
+		void initialize				(Ember::Options& options);
+		void run 					();
+		void terminate				();
+		
+		Render* 					_render; 
 	};
 }

@@ -7,11 +7,15 @@
 
 namespace _Ember
 {
+
+	////////////////////////////////////////////////////////////////////////////////
+	// Base Render Class
+
 	class Render
 	{
 	public:
 		virtual ~Render					() { };
-		virtual void DisplayFrame		() = 0;
+		virtual void RenderFrame		() = 0;
 	protected:
 		void initialize					(Ember::Options& options);
 		int 							_panelWidth;
@@ -22,13 +26,19 @@ namespace _Ember
 		bool							_flipHorizontal;
 	};
 
+	////////////////////////////////////////////////////////////////////////////////
+
+
+	////////////////////////////////////////////////////////////////////////////////
+	// Hardware Rendering
+
 #if !VIRTUAL
 	class RenderSystem : public Render
 	{
 	public:
 		RenderSystem					(Ember::Options& options);
 		~RenderSystem					();
-		void DisplayFrame				() { };
+		void RenderFrame				() { };
 	private:
 		rgb_matrix::GPIO*				_gpio;
 		rgb_matrix::RGBMatrix*			_matrix;
@@ -36,13 +46,19 @@ namespace _Ember
 	};
 #endif
 
+	////////////////////////////////////////////////////////////////////////////////
+
+
+	////////////////////////////////////////////////////////////////////////////////
+	// Virtual Rendering
+
 #if VIRTUAL
 	class RenderSystem : public Render
 	{
 	public:
 		RenderSystem					(Ember::Options& options);
 		~RenderSystem					();
-		void DisplayFrame				() { };
+		void RenderFrame				() { };
 	private:
 		sf::RenderWindow*               _window;
     	sf::Image*                      _image;
@@ -52,4 +68,6 @@ namespace _Ember
 		float 							_scaleFactor;
 	};
 #endif
+
+	////////////////////////////////////////////////////////////////////////////////
 }

@@ -8,14 +8,16 @@ namespace Ember
 	{
 	public:
 		Application();
-		virtual ~Application();
 		void Run();
 
-		/* Application initialization options. Set these in CreateApplication().
+		virtual ~Application();
+		virtual void Tick() = 0;
+		virtual void OnEvent() = 0;
+
+		/* Application initialization options. These should be set prior to 
+		returning the Application* in the Ember::CreateApplication() implementation.
 		Definition for this type (and its defaults) can be found in EmberMeta.h */
 		Options options;
-	private:
-		_Ember::Core* _core;
 	};
 
 	// To be defined in CLIENT

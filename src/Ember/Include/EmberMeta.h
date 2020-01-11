@@ -1,6 +1,6 @@
 #pragma once
-/* This file contains definitions of types used accross Ember's API */
 
+/* This file contains definitions of types used accross Ember's API */
 namespace Ember
 {
 	/* === EMBER APPLICATION INITIALIZATION OPTIONS ===
@@ -33,5 +33,15 @@ namespace Ember
 
 		/* === VIRTUAL DISPLAY INIT OPTIONS === */
 		float 			virtualScaleFactor = 3;
+	};
+
+	struct Color
+	{
+		Color() : r(0), g(0), b(0), a(0) {}
+		Color(uint8_t rr, uint8_t gg, uint8_t bb, uint8_t aa) : r(rr), g(gg), b(bb), a(aa) {}
+		uint8_t r;
+		uint8_t g;
+		uint8_t b;
+		uint8_t a;
 	};
 }
