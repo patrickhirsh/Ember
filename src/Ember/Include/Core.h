@@ -1,6 +1,7 @@
 #pragma once
 #include "EmberPCH.h"
 #include "Render.h"
+#include "DMDObject.h"
 
 namespace _Ember
 {
@@ -10,7 +11,6 @@ namespace _Ember
 	class Core
 	{
 	public:
-		static Core* GetInstance	();
 		static void Run				(Ember::Options options);
 
 	private:

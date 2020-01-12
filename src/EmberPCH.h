@@ -14,6 +14,8 @@
 #include <locale>
 #include <map>
 #include <math.h>
+#include <memory>
+#include <set>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,6 +34,7 @@
 
 /* Ember */
 #include "Ember/Include/Log.h"
+#include "Ember/Include/Memory.h"
 #include "Ember/Include/EmberMeta.h"
 #include "Ember/Include/EmberMetaInternal.h"
 #endif

@@ -1,5 +1,6 @@
 #pragma once
 #include "EmberPCH.h"
+#include "DMDObject.h"
 
 #if VIRTUAL
 #include <SFML/Graphics.hpp>
