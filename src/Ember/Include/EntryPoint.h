@@ -1,10 +1,13 @@
 #pragma once
 
-extern Ember::Application* Ember::CreateApplication();
+extern Ember::ApplicationToken Ember::CreateApplication();
 
 int main(int argc, char* argv[])
 {
-	auto application = Ember::CreateApplication();
-	application->Run();
-	delete application;
+	auto applicationToken = Ember::CreateApplication();
+	applicationToken._application->Run(
+		applicationToken._options,
+		applicationToken._applicationTick,
+		applicationToken._applicationOnEvent);
+	delete applicationToken._application;
 }

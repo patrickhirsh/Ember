@@ -11,7 +11,10 @@ namespace _Ember
 	class Core
 	{
 	public:
-		static void Run				(Ember::Options options);
+		static void Run(
+			Ember::Options options,
+			std::function<void()> ApplicationTick,
+			std::function<void()> ApplicationOnEvent);
 
 	private:
 		Core						() { };
@@ -19,7 +22,7 @@ namespace _Ember
 		static bool 				_running;
 		
 		void initialize				(Ember::Options& options);
-		void run 					();
+		void run 					(std::function<void()> ApplicationTick);
 		void terminate				();
 		
 		Render* 					_render; 

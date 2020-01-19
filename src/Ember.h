@@ -2,6 +2,7 @@
 
 #pragma once
 #include <memory>
+#include <functional>
 
 #include "Ember/Include/Application.h"
 #include "Ember/Include/EntryPoint.h"

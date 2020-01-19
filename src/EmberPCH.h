@@ -8,6 +8,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fstream>
+#include <functional>
 #include <getopt.h>
 #include <iostream>
 #include <limits.h>

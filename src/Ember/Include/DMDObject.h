@@ -11,7 +11,8 @@ namespace _Ember
 		Raster(
 			const std::tuple<int, int> 									origin, 
 			const std::tuple<int, int> 									dimensions,
-			const std::vector<std::vector<Ember::Color>> 				rawRaster) :
+			const std::vector<std::vector<Ember::Color>> 				rawRaster) 
+			:
 			Origin(origin), Dimensions(dimensions), RawRaster(rawRaster) {}
 
 		const std::tuple<int, int> 										Origin;

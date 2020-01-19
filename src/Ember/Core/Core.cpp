@@ -16,7 +16,11 @@ namespace _Ember
 		interruptReceived = true;
 	}
 
-	void Core::Run(Ember::Options options)
+	void Core::Run(
+			Ember::Options options,
+			std::function<void()> ApplicationTick,
+			std::function<void()> ApplicationOnEvent
+	)
 	{
 		if (_running)
 		{
@@ -24,7 +28,7 @@ namespace _Ember
 			return;
 		}
 		_instance->initialize(options);
-		_instance->run();
+		_instance->run(ApplicationTick);
 		_instance->terminate();
 	}
 
@@ -43,11 +47,11 @@ namespace _Ember
 		LOG_INFO("Startup Complete!");
 	}
 
-	void Core::run()
+	void Core::run(std::function<void()> ApplicationTick)
 	{
 		while(!interruptReceived)
 		{
-
+			ApplicationTick();
 		}
 	}
 

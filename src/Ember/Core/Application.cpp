@@ -12,8 +12,15 @@ namespace Ember
 
     }
 
-    void Application::Run()
+    void Application::Run(
+		Options Options,
+		std::function<void()> DerivedApplicationTick,
+		std::function<void()> DerivedApplicationOnEvent
+	)
     {
-		_Ember::Core::Run(options);
+		_Ember::Core::Run(
+			Options, 
+			DerivedApplicationTick, 
+			DerivedApplicationOnEvent);
     }
 }
