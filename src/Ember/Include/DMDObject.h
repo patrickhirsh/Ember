@@ -1,13 +1,6 @@
 #pragma once
-#include <algorithm>
-#include <iostream>
-#include <memory>
-#include <set>
-#include <stdio.h>
-#include <vector>
-#include "Memory.h"
-#include "Log.h"
-#include "EmberMeta.h"
+#include "EmberPCH.h"
+
 
 namespace _Ember
 {
@@ -16,35 +9,41 @@ namespace _Ember
 	{
 	public:
 		Raster(
-			const Ember::Ref<const std::tuple<int, int>> 							origin, 
-			const Ember::Ref<const std::tuple<int, int>> 							dimensions,
-			const Ember::Ref<const std::vector<std::vector<Ember::Color>>> 			raster) :
-			_origin(origin), _dimensions(dimensions), _raster(raster) {}
+			const std::tuple<int, int> 									origin, 
+			const std::tuple<int, int> 									dimensions,
+			const std::vector<std::vector<Ember::Color>> 				rawRaster) :
+			Origin(origin), Dimensions(dimensions), RawRaster(rawRaster) {}
 
-		const Ember::Ref<const std::tuple<int, int>> GetOrigin						() const { return _origin; }
-		const Ember::Ref<const std::tuple<int, int>> GetDimensions					() const { return _dimensions; }
-		const Ember::Ref<const std::vector<std::vector<Ember::Color>>> GetRaster	() const { return _raster; }
-	private:
-		const Ember::Ref<const std::tuple<int, int>> 								_origin;
-		const Ember::Ref<const std::tuple<int, int>>								_dimensions;
-		const Ember::Ref<const std::vector<std::vector<Ember::Color>>> 				_raster;
+		const std::tuple<int, int> 										Origin;
+		const std::tuple<int, int>										Dimensions;
+		const std::vector<std::vector<Ember::Color>> 					RawRaster;
 	};
+
+	/* Poll the state of Ember's data layer. Processes and compiles a queue of
+	draw requests from all active objects. Polling draw requests will clear the
+	queue of active objects. Performed once per engine tick. */
+	const Ember::Ref<std::vector<Ember::Ref<_Ember::Raster>>> PollDrawRequests();
 }
 
 namespace Ember
 {
 	class DMDObject
 	{
-	public: 	// static
-		static const std::set<Ember::Ref<DMDObject>>* const GetObjects	();
-	protected: 	// static
-		static void RegisterObject										(Ember::Ref<DMDObject> object);
-	private: 	// static
-		static std::set<Ember::Ref<DMDObject>>*		 					_objects;
-
+	/* DMDObject Management */
 	public:
-		virtual _Ember::Raster* Rasterize								() = 0;
+		friend const Ember::Ref<std::vector<Ember::Ref<_Ember::Raster>>> _Ember::PollDrawRequests();
+	private: 
+		static std::vector<Ember::Ref<DMDObject>>* _drawRequests;
+
+	/* DMDObject Base */
+	public:
+		/* Registers this object for drawing during the next engine tick */
+		void Draw														();
+
+	/* DMDObject Derived */
+	public:
+		virtual ~DMDObject												() { };					
 	protected:
-		virtual ~DMDObject												() { };
+		virtual Ember::Ref<_Ember::Raster> Rasterize					() = 0;
 	};
 }

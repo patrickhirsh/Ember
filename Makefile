@@ -18,10 +18,7 @@ EMBER_INCLUDE_FLAGS = -Isrc/Ember/Include -Isrc
 # CPP Project Files
 CPP_EMBER = $(wildcard src/Ember/*.cpp)
 CPP_CORE = $(wildcard src/Ember/Core/*.cpp)
-CPP_RENDER = $(wildcard src/Ember/Render/*.cpp)
-CPP_RESOURCE = $(wildcard src/Ember/Resource/*.cpp)
-CPP_SCENE = $(wildcard src/Ember/Scene/*.cpp)
-CPP_UTILITY = $(wildcard src/Ember/Utility/*.cpp)
+CPP_DATA = $(wildcard src/Ember/Data/*.cpp)
 
 # PCH Project Files
 PCH = src/EmberPCH.h
@@ -29,7 +26,7 @@ PCH_GCH = $(PCH).gch
 
 # Composition
 HDR = $(wildcard src/Ember/Include/*.h) src/*.h
-CPP = $(CPP_EMBER) $(CPP_CORE) $(CPP_RENDER) $(CPP_SCENE) $(CPP_UTILITY)
+CPP = $(CPP_EMBER) $(CPP_CORE) $(CPP_DATA)
 TMP := $(subst src/,obj/,$(CPP))
 OBJ := $(subst .cpp,.o,$(TMP))
 
@@ -67,10 +64,7 @@ init:
 	${MD} obj
 	${MD} obj/Ember
 	${MD} obj/Ember/Core
-	${MD} obj/Ember/Render
-	${MD} obj/Ember/Resource
-	${MD} obj/Ember/Scene
-	${MD} obj/Ember/Utility
+	${MD} obj/Ember/Data
 	${MD} $(RGB_LIBRARY_OBJ)
 
 $(PCH_GCH): $(PCH)

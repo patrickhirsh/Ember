@@ -36,6 +36,5 @@
 #include "Ember/Include/Log.h"
 #include "Ember/Include/Memory.h"
 #include "Ember/Include/EmberMeta.h"
-#include "Ember/Include/EmberMetaInternal.h"
 #endif
 

@@ -6,11 +6,15 @@ namespace Ember
 {
 	class DMDText : public DMDObject
 	{
+		/* DMDObject Derived Implementation */
 	public:
-		static Ember::Ref<DMDText> Create		();
-		_Ember::Raster* Rasterize				();
+		Ember::Ref<_Ember::Raster> Rasterize	();
 		~DMDText								() {};
 	private:
 		DMDText									() {};
+	
+		/* DMDText */
+	public:
+		static Ember::Ref<DMDText> Create		();
 	};
 }
