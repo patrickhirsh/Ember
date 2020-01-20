@@ -21,9 +21,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sstream>
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
+#include <unordered_map>
 #include <vector>
 
 /* RGB Matrix Library */
@@ -34,8 +36,9 @@
 #include "../lib/rpi-rgb-led-matrix/include/graphics.h"
 
 /* Ember */
-#include "Ember/Include/Log.h"
-#include "Ember/Include/Memory.h"
-#include "Ember/Include/EmberMeta.h"
+#include "Ember/Include/Utility/EmberMeta.h"
+#include "Ember/Include/Utility/Log.h"
+#include "Ember/Include/Utility/Memory.h"
+#include "Ember/Include/Utility/Path.h"
 #endif
 

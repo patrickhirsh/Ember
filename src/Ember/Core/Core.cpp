@@ -52,6 +52,7 @@ namespace _Ember
 		while(!interruptReceived)
 		{
 			ApplicationTick();
+			_render->RenderFrame(PollDrawRequests());
 		}
 	}
 

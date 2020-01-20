@@ -47,15 +47,15 @@ namespace _Ember
 		delete _matrix;
 	}
 
-	RenderSystem::RenderFrame(const Ember::Ref<std::vector<Ember::Ref<_Ember::Raster>>> rasterQueue)
+	void RenderSystem::RenderFrame(const Ember::Ref<std::vector<Ember::Ref<_Ember::Raster>>> rasterQueue)
 	{
 		for (auto raster : *rasterQueue)
 		{
 			if (raster == nullptr) { LOG_WARN("received a null raster!"); continue; }
 			int xRasterOrigin = std::get<0>(raster->Origin);
 			int yRasterOrigin = std::get<1>(raster->Origin);
-			int xRasterDimensions = std::get<0>(raster->Dimensiuons);
-			int yRasterDimensions = std::get<1>(raster->Dimensiuons);
+			int xRasterDimensions = std::get<0>(raster->Dimensions);
+			int yRasterDimensions = std::get<1>(raster->Dimensions);
 
 			// skip raster if it's entirely off-screen
 			if (xRasterOrigin >= (_panelWidth * _panelCountX) 	||
@@ -68,7 +68,7 @@ namespace _Ember
 
 			// determine visible raster-space region (chop negative space)
 			int xRasterStart = xRasterOrigin < 0 ? abs(xRasterOrigin) : 0;
-			int yRasterStart = yRasterOrigin < 0 > abs(yRasterOrigin) : 0;
+			int yRasterStart = yRasterOrigin < 0 ? abs(yRasterOrigin) : 0;
 			int xRasterEnd = xRasterDimensions - xRasterStart;
 			int yRasterEnd = yRasterDimensions - yRasterStart;
 
@@ -88,9 +88,9 @@ namespace _Ember
 					_buffer->SetPixel(
 						_flipHorizontal ? ((_panelWidth * _panelCountX) - 1) - (x + xPanelSpaceOrigin) : x + xPanelSpaceOrigin,
 						_flipVertical ? ((_panelHeight * _panelCountY) - 1) - (y + yPanelSpaceOrigin) : y + yPanelSpaceOrigin,
-						raster->RawRaster[x][y]->r,
-						raster->RawRaster[x][y]->g,
-						raster->RawRaster[x][y]->b);
+						raster->RawRaster[x][y].r,
+						raster->RawRaster[x][y].g,
+						raster->RawRaster[x][y].b);
 				}
 			}
 			_buffer = _matrix->SwapOnVSync(_buffer);

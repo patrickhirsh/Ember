@@ -22,7 +22,7 @@ namespace _Ember
 
 	/* Poll the state of Ember's data layer. Processes and compiles a queue of
 	draw requests from all active objects. Polling draw requests will clear the
-	queue of active objects. Performed once per engine tick. */
+	queue of active objects. */
 	const Ember::Ref<std::vector<Ember::Ref<_Ember::Raster>>> PollDrawRequests();
 }
 

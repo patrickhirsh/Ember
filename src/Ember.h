@@ -4,8 +4,8 @@
 #include <memory>
 #include <functional>
 
-#include "Ember/Include/Application.h"
-#include "Ember/Include/EntryPoint.h"
-#include "Ember/Include/Memory.h"
+#include "Ember/Include/Core/Application.h"
+#include "Ember/Include/Core/EntryPoint.h"
+#include "Ember/Include/Utility/Memory.h"
 
-#include "Ember/Include/DMDText.h"
+#include "Ember/Include/Data/DMDText.h"
