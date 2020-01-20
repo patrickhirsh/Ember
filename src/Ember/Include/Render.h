@@ -15,7 +15,7 @@ namespace _Ember
 	{
 	public:
 		virtual ~Render					() { };
-		virtual void RenderFrame		() = 0;
+		virtual void RenderFrame		(const Ember::Ref<std::vector<Ember::Ref<_Ember::Raster>>> rasterQueue) = 0;
 	protected:
 		void initialize					(Ember::Options& options);
 		int 							_panelWidth;
@@ -38,7 +38,7 @@ namespace _Ember
 	public:
 		RenderSystem					(Ember::Options& options);
 		~RenderSystem					();
-		void RenderFrame				() { };
+		void RenderFrame				(const Ember::Ref<std::vector<Ember::Ref<_Ember::Raster>>> rasterQueue);
 	private:
 		rgb_matrix::GPIO*				_gpio;
 		rgb_matrix::RGBMatrix*			_matrix;
@@ -58,7 +58,7 @@ namespace _Ember
 	public:
 		RenderSystem					(Ember::Options& options);
 		~RenderSystem					();
-		void RenderFrame				() { };
+		void RenderFrame				(const Ember::Ref<std::vector<Ember::Ref<_Ember::Raster>>> rasterQueue) { };
 	private:
 		sf::RenderWindow*               _window;
     	sf::Image*                      _image;

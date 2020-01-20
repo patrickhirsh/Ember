@@ -46,6 +46,56 @@ namespace _Ember
 		delete _gpio;
 		delete _matrix;
 	}
+
+	RenderSystem::RenderFrame(const Ember::Ref<std::vector<Ember::Ref<_Ember::Raster>>> rasterQueue)
+	{
+		for (auto raster : *rasterQueue)
+		{
+			if (raster == nullptr) { LOG_WARN("received a null raster!"); continue; }
+			int xRasterOrigin = std::get<0>(raster->Origin);
+			int yRasterOrigin = std::get<1>(raster->Origin);
+			int xRasterDimensions = std::get<0>(raster->Dimensiuons);
+			int yRasterDimensions = std::get<1>(raster->Dimensiuons);
+
+			// skip raster if it's entirely off-screen
+			if (xRasterOrigin >= (_panelWidth * _panelCountX) 	||
+				yRasterOrigin >= (_panelHeight * _panelCountY) 	||
+				xRasterOrigin + xRasterDimensions < 0 			||
+				yRasterOrigin + yRasterDimensions < 0)
+				{
+					continue;
+				}
+
+			// determine visible raster-space region (chop negative space)
+			int xRasterStart = xRasterOrigin < 0 ? abs(xRasterOrigin) : 0;
+			int yRasterStart = yRasterOrigin < 0 > abs(yRasterOrigin) : 0;
+			int xRasterEnd = xRasterDimensions - xRasterStart;
+			int yRasterEnd = yRasterDimensions - yRasterStart;
+
+			// final panel-space raster origin
+			int xPanelSpaceOrigin = xRasterOrigin + xRasterStart;
+			int yPanelSpaceOrigin = yRasterOrigin + yRasterStart;
+			
+			for (int y = yRasterStart; y < yRasterEnd; y++)
+			{
+				// don't render outside y screenspace (chop positive space)
+				if ((y + yPanelSpaceOrigin) >= (_panelHeight * _panelCountY)) { break; }
+				for (int x = xRasterStart; x < xRasterEnd; x++)
+				{
+					// don't render outside x screenspace (chop positive space)
+					if ((x + xPanelSpaceOrigin) >= (_panelWidth * _panelCountX)) { break; }
+
+					_buffer->SetPixel(
+						_flipHorizontal ? ((_panelWidth * _panelCountX) - 1) - (x + xPanelSpaceOrigin) : x + xPanelSpaceOrigin,
+						_flipVertical ? ((_panelHeight * _panelCountY) - 1) - (y + yPanelSpaceOrigin) : y + yPanelSpaceOrigin,
+						raster->RawRaster[x][y]->r,
+						raster->RawRaster[x][y]->g,
+						raster->RawRaster[x][y]->b);
+				}
+			}
+			_buffer = _matrix->SwapOnVSync(_buffer);
+		}
+	}
 #endif
 
 	////////////////////////////////////////////////////////////////////////////////
