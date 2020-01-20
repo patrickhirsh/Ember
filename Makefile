@@ -74,6 +74,9 @@ init:
 	${MD} obj/Ember/Utility
 	${MD} $(RGB_LIBRARY_OBJ)
 
+$(PCH_GCH): $(PCH)
+	$(CXX) $(PCH)
+
 $(RGB_LIBRARY):
 	$(MAKE) -C $(RGB_LIBDIR)
 
@@ -99,9 +102,6 @@ inf_build:
 inf_complete:
 	$(info ================= Ember Build Successful! =================)
 	$(info  )
-
-$(PCH_GCH): $(PCH)
-	$(CXX) $(PCH)
 
 ######################################################################
 # PATTERNS
